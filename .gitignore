@@ -1,0 +1,17 @@
+# Ignore everything
+*
+
+!.gitignore
+!README.md
+
+# BUT not the folders:
+!src/
+# within those folders, ignore everything:
+#src/*
+
+#!src/CMakeLists.txt
+#!src/FirstNode/
+#!src/franka_ros/
+
+
+
