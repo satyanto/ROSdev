@@ -25,3 +25,9 @@ At the top directory of our catkin workspace (ROSdev):
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
+## franka_ros
+Since the lab computer runs on ROS Kinetic, franka_ros is built using ROS Kinetic version and all its dependencies:
+(Requires libfranka to be installed first in computer)
+```
+sudo apt install ros-kinetic-libfranka ros-kinetic-franka-ros
+```
