@@ -6,7 +6,9 @@
 
 # BUT not the folders:
 !src/
-# within those folders, ignore everything:
+# within those folders, don't ignore contents:
+!src/*
+# within those folders, ignore everything it contains:
 #src/*
 
 #!src/CMakeLists.txt
