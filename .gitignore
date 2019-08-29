@@ -8,6 +8,17 @@
 !src/
 # within those folders, don't ignore contents:
 !src/*
+
+# for some unknown reason, this franka_ros catkin package is NOT tracked!!   :(
+!src/franka_ros/
+!src/franka_ros/*
+
+# track our package yo
+!src/hafidh_and_frank/
+!src/hafidh_and_frank/*
+!src/hafidh_and_frank/src
+!src/hafidh_and_frank/src/*
+
 # within those folders, ignore everything it contains:
 #src/*
 
