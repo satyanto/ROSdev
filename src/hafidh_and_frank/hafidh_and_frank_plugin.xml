@@ -1,0 +1,8 @@
+<library path="lib/libfranka_example_controllers">
+    <class name="hafidh_example_controllers/HafidhsFirstController" type="hafidh_example_controllers::HafidhsFirstController" base_class_type="controller_interface::ControllerBase">
+        <description>
+            Hopefully it works!!! eeeeek
+        </description>
+    </class>
+</library>
+
