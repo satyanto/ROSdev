@@ -20,6 +20,8 @@
 !src/hafidh_and_frank/src/*
 !src/hafidh_and_frank/include
 !src/hafidh_and_frank/include/*
+!src/hafidh_and_frank/cfg
+!src/hafidh_and_frank/cfg/*
 
 # within those folders, ignore everything it contains:
 #src/*
