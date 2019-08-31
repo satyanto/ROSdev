@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(hafidh_and_frank)
+project(hafidh_example_controllers)
 
 set(CMAKE_BUILD_TYPE Release)
 
@@ -28,7 +28,7 @@ generate_dynamic_reconfigure_options(
 )
 
 catkin_package(
-    LIBRARIES hafidh_and_frank
+    LIBRARIES hafidh_example_controllers
     CATKIN_DEPENDS
         controller_interface
         dynamic_reconfigure
@@ -42,11 +42,11 @@ catkin_package(
     DEPENDS Franka
 )
 
-add_library(hafidh_and_frank
+add_library(hafidh_example_controllers
     src/hafidhs_first_controller.cpp
 )
 
-add_dependencies(hafidh_and_frank
+add_dependencies(hafidh_example_controllers
     ${${PROJECT_NAME}_EXPORTED_TARGETS}
     ${catkin_EXPORTED_TARGETS}
     ${PROJECT_NAME}_generate_messages_cpp
@@ -54,22 +54,22 @@ add_dependencies(hafidh_and_frank
     ${PROJECT_NAME}_gencfg
 )
 
-target_link_libraries(hafidh_and_frank PUBLIC
+target_link_libraries(hafidh_example_controllers PUBLIC
     ${Franka_LIBRARIES}
     ${catkin_LIBRARIES}
 )
 
-target_include_directories(hafidh_and_frank SYSTEM PUBLIC
+target_include_directories(hafidh_example_controllers SYSTEM PUBLIC
     ${Franka_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIRS}
     ${catkin_INCLUDE_DIRS}
 )
 
-target_include_directories(hafidh_and_frank PUBLIC
+target_include_directories(hafidh_example_controllers PUBLIC
     include
 )
 
-install(TARGETS hafidh_and_frank
+install(TARGETS hafidh_example_controllers
     ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
     RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -83,7 +83,7 @@ install(DIRECTORY config
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-install(FILES hafidh_and_frank_plugin.xml
+install(FILES hafidh_example_controllers_plugin.xml
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
@@ -101,9 +101,9 @@ if (CLANG_TOOLS)
         ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
     )
-    add_format_target(hafidh_and_frank FILES ${SOURCES} ${HEADERS})
-    add_tidy_target(hafidh_and_frank
+    add_format_target(hafidh_example_controllers FILES ${SOURCES} ${HEADERS})
+    add_tidy_target(hafidh_example_controllers
         FILES ${SOURCES}
-        DEPENDS hafidh_and_frank
+        DEPENDS hafidh_example_controllers
     )
 endif()
