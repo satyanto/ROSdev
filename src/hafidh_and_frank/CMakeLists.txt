@@ -22,8 +22,6 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(Eigen3 REQUIRED)
 find_package(Franka 0.5.0 REQUIRED)
 
-generate_messages()
-
 generate_dynamic_reconfigure_options(
     cfg/compliance_param.cfg
     cfg/desired_mass_param.cfg
