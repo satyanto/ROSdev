@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>hafidh_and_frank</name>
+  <name>hafidh_example_controllers</name>
   <version>0.1.0</version>
   <description>The hafidh_and_frank package</description>
   <maintainer email="hafidh.satyanto@jacks.sdstate.edu">Hafidh Satyanto</maintainer>
