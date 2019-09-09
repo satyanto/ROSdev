@@ -13,6 +13,19 @@
 !src/franka_ros/
 !src/franka_ros/*
 
+# track our new package yo
+!src/hafidh_control/
+!src/hafidh_control/*
+!src/hafidh_control/src
+!src/hafidh_control/src/*
+!src/hafidh_control/config
+!src/hafidh_control/config/*
+!src/hafidh_control/include
+!src/hafidh_control/include/*
+!src/hafidh_control/launch
+!src/hafidh_control/launch/*
+
+
 # track our package yo
 !src/hafidh_and_frank/
 !src/hafidh_and_frank/*
