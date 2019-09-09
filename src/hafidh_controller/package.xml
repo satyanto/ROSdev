@@ -10,7 +10,7 @@
 
     <buildtool_depend>catkin</buildtool_depend>
 
-    <buildtool_depend>message_generation</build_depend>
+    <buildtool_depend>message_generation</buildtool_depend>
 
     <build_export_depend>message_runtime</build_export_depend>
 
