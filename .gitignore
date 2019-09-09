@@ -14,16 +14,18 @@
 !src/franka_ros/*
 
 # track our new package yo
-!src/hafidh_control/
-!src/hafidh_control/*
-!src/hafidh_control/src
-!src/hafidh_control/src/*
-!src/hafidh_control/config
-!src/hafidh_control/config/*
-!src/hafidh_control/include
-!src/hafidh_control/include/*
-!src/hafidh_control/launch
-!src/hafidh_control/launch/*
+!src/hafidh_controller/
+!src/hafidh_controller/*
+!src/hafidh_controller/src
+!src/hafidh_controller/src/*
+!src/hafidh_controller/config
+!src/hafidh_controller/config/*
+!src/hafidh_controller/include
+!src/hafidh_controller/include/*
+!src/hafidh_controller/launch
+!src/hafidh_controller/launch/*
+!src/hafidh_controller/include/hafidh_controller
+!src/hafidh_controller/include/hafidh_controller/*
 
 
 # track our package yo
