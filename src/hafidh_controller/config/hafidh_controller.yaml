@@ -1,0 +1,3 @@
+hafidh_controller:
+  type: hafidh_controller/HafidhController
+  arm_id: panda
