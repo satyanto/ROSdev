@@ -33,7 +33,7 @@ namespace hafidh_controller {
         try {
             cartesian_pose_handle_ = std::make_unique<franka_hw::FrankaCartesianPoseHandle>(
                 cartesian_pose_interface_->getHandle(arm_id + "_robot"));
-        } catch (const hardware_interface::HardwareInterfaceExeception& e) {
+        } catch (const hardware_interface::HardwareInterfaceException& e) {
             ROS_ERROR_STREAM(
                 "HafidhController: Exception getting Cartesian handle: " << e.what());
             return false;
@@ -57,7 +57,7 @@ namespace hafidh_controller {
                     return false;
                 }
             }
-        } catch (const hardware_interface::HardwareInterfaceExeception& e) {
+        } catch (const hardware_interface::HardwareInterfaceException& e) {
             ROS_ERROR_STREAM(
                 "HafidhController: Exception getting state handle: " << e.what());
             return false;
