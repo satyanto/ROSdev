@@ -1,6 +1,6 @@
 // Hafidh's 2nd attempt sad!
 
-#include <hafidhcontrol/hafidhcontrol.h>
+#include <hafidh_controller/hafidh_controller.h>
 
 #include <cmath>
 #include <memory>
