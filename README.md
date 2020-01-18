@@ -20,3 +20,6 @@ Usually, the path to the libfranka build is: (assuming default settings)
 ```
 -DFranka_DIR:PATH=libfranka/build
 ```
+
+## More Info:
+https://frankaemika.github.io/docs
