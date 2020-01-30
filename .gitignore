@@ -10,8 +10,8 @@
 !src/*
 
 # for some unknown reason, this franka_ros catkin package is NOT tracked!!   :(
-!src/franka_ros/
-!src/franka_ros/*
+#!src/franka_ros/
+#!src/franka_ros/*
 
 # track our new package yo
 !src/hafidh_controller/
