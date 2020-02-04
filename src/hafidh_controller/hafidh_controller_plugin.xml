@@ -1,4 +1,5 @@
 <library path="lib/libhafidh_controller">
+
     <class name="hafidh_controller/HafidhController"
         type="hafidh_controller::HafidhController"
         base_class_type="controller_interface::ControllerBase">
@@ -6,5 +7,14 @@
         My second attempt at making my own controller!
     </description>
     </class>
+    
+    <class name="hafidh_controller/FrankController"
+        type = "hafidh_controller::FrankController"
+        base_class_type="controller_interface::ControllerBase">
+    <description>
+        Handheld IMU controller prototype!
+    </description>
+    </class>
+    
 </library>
 

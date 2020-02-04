@@ -8,27 +8,38 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(catkin REQUIRED COMPONENTS
     controller_interface
+    dynamic_reconfigure
+    hardware_interface
     franka_hw
     geometry_msgs
-    hardware_interface
-    message_generation
     pluginlib
     realtime_tools
+    message_generation
     roscpp
     rospy
 )
 
+find_package(Eigen3 REQUIRED)
 find_package(Franka 0.5.0 REQUIRED)
 
+
+
 generate_messages()
+
+generate_dynamic_reconfigure_options(
+    cfg/compliance_param.cfg
+)
+
+
 
 catkin_package(
     LIBRARIES hafidh_controller
     CATKIN_DEPENDS
         controller_interface
+        dynamic_reconfigure
+        hardware_interface
         franka_hw
         geometry_msgs
-        hardware_interface
         message_runtime
         pluginlib
         realtime_tools
@@ -36,9 +47,14 @@ catkin_package(
     DEPENDS Franka
 )
 
+
+
 add_library(hafidh_controller
     src/hafidh_controller.cpp
+    src/frank_controller.cpp
 )
+
+
 
 add_dependencies(hafidh_controller
     ${${PROJECT_NAME}_EXPORTED_TARGETS}
@@ -48,15 +64,22 @@ add_dependencies(hafidh_controller
     ${PROJECT_NAME}_gencfg
 )
 
+
+
 target_link_libraries(hafidh_controller PUBLIC
     ${Franka_LIBRARIES}
     ${catkin_LIBRARIES}
 )
 
+
+
 target_include_directories(hafidh_controller SYSTEM PUBLIC
     ${Franka_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIRS}
     ${catkin_INCLUDE_DIRS}
 )
+
+
 
 target_include_directories(hafidh_controller PUBLIC
     include
@@ -82,10 +105,17 @@ install(FILES hafidh_controller_plugin.xml
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
+catkin_install_python(
+    PROGRAMS scripts/interactive_marker.py
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+
 
 include(${CMAKE_CURRENT_LIST_DIR}/../cmake/ClangTools.cmake OPTIONAL
     RESULT_VARIABLE CLANG_TOOLS
 )
+
 if(CLANG_TOOLS)
     file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
     file(GLOB_RECURSE HEADERS

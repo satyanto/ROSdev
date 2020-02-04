@@ -8,5 +8,5 @@
     </include>
 
     <rosparam command="load" file="$(find hafidh_controller)/config/hafidh_controller.yaml" />
-    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="hafidh_controller"/>
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="hafidh_controller/FrankController"/>
 </launch>

@@ -17,7 +17,7 @@
 #include <Eigen/Dense>
 
 // We're going to use the default compliance parameters.
-#include <franka_example_controllers/compliance_paramConfig.h>
+#include <hafidh_controller/compliance_paramConfig.h>
 #include <franka_hw/franka_model_interface.h>
 #include <franka_hw/franka_state_interface.h>
 
@@ -60,9 +60,9 @@ namespace hafidh_controller {
             Eigen::Quaterniond orientation_d_target_;
 
             // Dynamic reconfigure for compliance parameters... I'm going to leave it as-is.
-            std::unique_ptr<dynamic_reconfigure::Server<franka_example_controllers::compliance_paramConfig>> dynamic_server_compliance_param_;
+            std::unique_ptr<dynamic_reconfigure::Server<hafidh_controller::compliance_paramConfig>> dynamic_server_compliance_param_;
             ros::NodeHandle dynamic_reconfigure_compliance_param_node_;
-            void complianceParamCallback(franka_example_controllers::compliance_paramConfig& config, uint32_t level);
+            void complianceParamCallback(hafidh_controller::compliance_paramConfig& config, uint32_t level);
 
             // Our target pose subscriber
             ros::Subscriber sub_target_pose_;
