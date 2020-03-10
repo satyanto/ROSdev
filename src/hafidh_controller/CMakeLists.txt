@@ -66,15 +66,27 @@ add_dependencies(hafidh_controller
 )
 
 
-
+# Add our test publisher node
+#add_library(target_publisher src/target_publisher.cpp)
 add_executable(target_publisher src/target_publisher.cpp)
-add_dependencies(target_publisher
-    ${${PROJECT_NAME}_EXPORTED_TARGETS}
-    ${catkin_EXPORTED_TARGETS}
-    ${PROJECT_NAME}_generate_messages_cpp
-    ${PROJECT_NAME}_gencpp
-    ${PROJECT_NAME}_gencfg
+target_link_libraries(target_publisher
+    ${Franka_LIBRARIES}
+    ${catkin_LIBRARIES}
 )
+target_include_directories(target_publisher SYSTEM PUBLIC
+    ${Franka_INCLUDE_DIRS}
+    ${catkin_INCLUDE_DIRS}
+)
+
+
+# add_executable(target_publisher src/target_publisher.cpp)
+# add_dependencies(target_publisher
+#     ${${PROJECT_NAME}_EXPORTED_TARGETS}
+#     ${catkin_EXPORTED_TARGETS}
+#     ${PROJECT_NAME}_generate_messages_cpp
+#     ${PROJECT_NAME}_gencpp
+#     ${PROJECT_NAME}_gencfg
+# )
 
 
 
