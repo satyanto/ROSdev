@@ -19,7 +19,7 @@
     <!-- <node name="interactive_marker" pkg="hafidh_controller" type="interactive_marker.py" required="true" output="screen">
         <param name="link_name" value="panda_link0"/>
     </node> -->
-    <node name="target_publisher" pkg ="hafidh_controller" type="target_publisher"/>
+    <node name="target_publisher" pkg ="hafidh_controller" type="target_publisher" output="screen"/>
     <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" required="false"/>
 </launch>
 
