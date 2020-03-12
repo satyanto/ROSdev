@@ -15,6 +15,15 @@ rosdep install --from-paths src --ignore-src --rosdistro melodic -y --skip-keys 
 catkin_make -DCMAKE_BUILD_TYPE=Release -DFranka_DIR:PATH=/path/to/libfranka/build
 source devel/setup.sh
 ```
+## Update:
+I've changed to a new build system using the new catkin build system (instead of catkin_make).
+The reason was because of an error long ago I forgot about as it wasn't compiling/building properly using catkin make, but also because catkin build now offers each package its own CMakeList and builds each package in isolation. (Also each dependency now should be guaranteed to be built before a package is built, yay!)
+SO - follow the set up procedure above but instead of using catkin make we'll use catkin build:
+```
+catkin build
+source devel/setup.bash
+```
+
 Change the --rosdistro to kinetic if you are using kinetic.
 Usually, the path to the libfranka build is: (assuming default settings)
 ```
