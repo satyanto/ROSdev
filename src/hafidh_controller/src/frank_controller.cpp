@@ -219,14 +219,21 @@ namespace hafidh_controller {
         // Here we are actually assigning our Vector3 Eigen 'position_d_target_' with our target message 'msg' of type 'PoseStamped' from 'geometry_msgs'
         position_d_target_ << msg->pose.position.x, msg->pose.position.y, msg->pose.position.z;
 
+
+        // I DISABLED THE ORIENTATION ... because with orientation, suddenly there are a ton of possible 'solutions' to
+        // get from one point to another, and so it kind of messes up the robot / is unstable. It's in the mathematics.
+        // I plan on just turning possibly the X-orientation though, since that one only rotates the end-effector and
+        // so is pretty stable (mathematically).
+        // The below simply prevents the target pose's orientation from being updated.
+
         // Here we do the same but with orientation using Quaternions!
-        Eigen::Quaterniond last_orientation_d_target(orientation_d_target_);
-        orientation_d_target_.coeffs() << msg->pose.orientation.x, msg->pose.orientation.y, msg->pose.orientation.z, msg->pose.orientation.w;
+        // Eigen::Quaterniond last_orientation_d_target(orientation_d_target_);
+        // orientation_d_target_.coeffs() << msg->pose.orientation.x, msg->pose.orientation.y, msg->pose.orientation.z, msg->pose.orientation.w;
 
         // Not entirely sure what this does... I think it reverses the orientation(?)
-        if (last_orientation_d_target.coeffs().dot(orientation_d_target_.coeffs()) < 0.0) {
-            orientation_d_target_.coeffs() << -orientation_d_target_.coeffs();
-        }
+        // if (last_orientation_d_target.coeffs().dot(orientation_d_target_.coeffs()) < 0.0) {
+        //     orientation_d_target_.coeffs() << -orientation_d_target_.coeffs();
+        // }
     }
 } // End of our namespace
 
