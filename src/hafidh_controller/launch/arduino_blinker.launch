@@ -1,0 +1,4 @@
+<launch>
+    <node name = "arduino_blinker" pkg="hafidh_controller" type="arduino_blinker"/>
+</launch>
+

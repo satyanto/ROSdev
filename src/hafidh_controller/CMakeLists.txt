@@ -60,8 +60,8 @@ add_library(hafidh_controller
 add_dependencies(hafidh_controller
     ${${PROJECT_NAME}_EXPORTED_TARGETS}
     ${catkin_EXPORTED_TARGETS}
-    ${PROJECT_NAME}_generate_messages_cpp
-    ${PROJECT_NAME}_gencpp
+#    ${PROJECT_NAME}_generate_messages_cpp
+#    ${PROJECT_NAME}_gencpp
     ${PROJECT_NAME}_gencfg
 )
 
@@ -77,6 +77,19 @@ target_include_directories(target_publisher SYSTEM PUBLIC
     ${Franka_INCLUDE_DIRS}
     ${catkin_INCLUDE_DIRS}
 )
+
+
+# Add our arduino_blinker node
+add_executable(arduino_blinker src/arduino_blink.cpp)
+target_link_libraries(arduino_blinker
+    ${Franka_LIBRARIES}
+    ${catkin_LIBRARIES}
+)
+target_include_directories(arduino_blinker SYSTEM PUBLIC
+    ${Franka_INCLUDE_DIRS}
+    ${catkin_INCLUDE_DIRS}
+)
+
 
 
 # add_executable(target_publisher src/target_publisher.cpp)
