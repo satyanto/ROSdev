@@ -34,7 +34,7 @@ Usually, the path to the libfranka build is: (assuming default settings)
 (idk why rosserial is in python, but ok)
 The rosserial serial node needs to be open at a serial port in order to essentially act as a middle-man 'handshaker' between any external rosserial devices and the main ROS computer.
 ```
-rosrun rosserial_python serial_node.py /dev/ttyACM0
+rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=500000
 ```
 My Arduino is currently always connected to ttyACM0 but change it to the correct serial port.
 
