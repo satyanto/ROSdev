@@ -80,6 +80,9 @@ void dataCallback(const geometry_msgs::Vector3::ConstPtr& imu_vector) {
     processArray(array_x_ptr, imu_processed_x);
     processArray(array_y_ptr, imu_processed_y);
     processArray(array_z_ptr, imu_processed_z);
+    arrayInsertShift(array_x_ptr, imu_processed_x);
+    arrayInsertShift(array_y_ptr, imu_processed_y);
+    arrayInsertShift(array_z_ptr, imu_processed_z);
 }
 
 void arrayInsertShift(float* arrayptr, float sample) {
