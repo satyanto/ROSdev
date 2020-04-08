@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>cartesian</name>
+    <version>0.1.0</version>
+    <description>An IMU-based positional tracker</description>
+    <maintainer email="hafidhsatyanto@gmail.com">Hafidh</maintainer>
+    <license>Apache 2.0</license>
+
+    <author>Hafidh Satyanto</author>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <depend>geometry_msgs</depend>
+    <depend>std_msgs</depend>
+    <depend>roscpp</depend>
+    <depend>pluginlib</depend>
+
+</package>

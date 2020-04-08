@@ -27,6 +27,15 @@
 !src/hafidh_controller/include/hafidh_controller
 !src/hafidh_controller/include/hafidh_controller/*
 
+# track our sleek new cartesian package!!!
+!src/cartesian/
+!src/cartesian/*
+!src/cartesian/src
+!src/cartesian/src/*
+!src/cartesian/launch
+!src/cartesian/launch/*
+
+
 # within those folders, ignore everything it contains:
 #src/*
 
