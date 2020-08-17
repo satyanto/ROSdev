@@ -15,6 +15,7 @@
 #include <stdio.h>
 
 #include <geometry_msgs/Vector3.h>
+#include <geometry_msgs/PoseStamped.h>
 
 const int imu_samples_amount = 25;
 const int moving_average_samples = 10;
@@ -55,6 +56,7 @@ ros::Publisher position_publisher;
 
 // Function/Class Declarations
 void dataCallback(const geometry_msgs::Vector3::ConstPtr& imu_vector);
+void calculateTargetPose(double* position_ptr);
 void calculatePosition(double* position_ptr, double* velocity_ptr, double* time_ptr);
 void calculateVelocity(double* velocity_ptr, double* accel_ptr, double* time_ptr);
 bool stoppedMoving(double* accel_ptr);
@@ -209,13 +211,13 @@ void calculateVelocity(double* velocity_ptr, double* accel_ptr , double* time_pt
 void checkMovement(double* x_accel_ptr, double* y_accel_ptr, double* z_accel_ptr, double* x_velo_ptr, double* y_velo_ptr, double* z_velo_ptr) {
     int x_count = 0, y_count = 0, z_count = 0;
     for (int i=0; i<imu_samples_amount; i++) {
-        if ((*&x_accel_ptr[i] <= 0.5) && (*&x_accel_ptr[i] >= -0.5)) {
+        if ((*&x_accel_ptr[i] <= 1) && (*&x_accel_ptr[i] >= -1)) {
             x_count++;
         }
-        if ((*&y_accel_ptr[i] <= 0.5) && (*&y_accel_ptr[i] >= -0.5)) {
+        if ((*&y_accel_ptr[i] <= 1) && (*&y_accel_ptr[i] >= -1)) {
             y_count++;
         }
-        if ((*&z_accel_ptr[i] <= 0.5) && (*&z_accel_ptr[i] >= -0.5)) {
+        if ((*&z_accel_ptr[i] <= 1) && (*&z_accel_ptr[i] >= -1)) {
             z_count++;
         }
     }
@@ -236,7 +238,7 @@ void checkMovement(double* x_accel_ptr, double* y_accel_ptr, double* z_accel_ptr
 bool stoppedMoving(double* accel_ptr) {
     int count;
     for (int i=0; i<imu_samples_amount; i++) {
-        if (*&accel_ptr[i] <= 0.5 && *&accel_ptr[i] >= -0.5) {
+        if (*&accel_ptr[i] <= 1 && *&accel_ptr[i] >= -1) {
             count++;
         }
     }
