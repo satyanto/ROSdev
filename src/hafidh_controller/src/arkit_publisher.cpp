@@ -27,16 +27,16 @@ int main(int argc, char **argv) {
 
     ros::Subscriber cartesian_subscriber = node.subscribe<geometry_msgs::Vector3>("arkit_pos", 100, dataCallback);
     ros::Publisher target_publisher = node.advertise<geometry_msgs::PoseStamped>("/target_pose", 20);
-    ros::Rate loop_rate(10);
+    ros::Rate loop_rate(20);
 
     int count = 0;
     while (ros::ok()) {
 
-        std::cout << count << std::endl;
+        //std::cout << count << std::endl;
         if (count<=2) {             // we use this so we don't run into initial pose problems (discontinuous motion) - for the first few seconds, let the robot stay where it is
             geometry_msgs::PoseStamped target_pose;
 
-            std::cout << "initial count" << std::endl;
+            //std::cout << "initial count" << std::endl;
             target_pose.header.frame_id = "panda_link0";
             target_pose.pose.position.x = initialpose[0];
             target_pose.pose.position.y = initialpose[1];
@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 
             target_pose.header.frame_id = "panda_link0";
             target_pose.pose.position.x = initialpose[0]+arkit_position.x;
-            target_pose.pose.position.y = initialpose[1]+arkit_position.y;
+            target_pose.pose.position.y = initialpose[1]-arkit_position.y;
             target_pose.pose.position.z = initialpose[2]+arkit_position.z;
 
             target_publisher.publish(target_pose);
@@ -62,21 +62,23 @@ int main(int argc, char **argv) {
 
         ros::spinOnce();
         loop_rate.sleep();
+        if (count<=10) {
         ++count;
+        }
     }
 
     return 0;
 }
 
 void dataCallback(const geometry_msgs::Vector3::ConstPtr& arkit_vector) {
-    double x_upper_limits = 0.25;
-    double x_lower_limit = -0.2;
+    double x_upper_limits = 0.325;
+    double x_lower_limit = -0.10;
 
-    double y_upper_limits = 0.12;
-    double y_lower_limits = -0.10;
-    
+    double y_upper_limits = 0.425;
+    double y_lower_limits = -0.425;
+
     double z_upper_limits = 0.175;
-    double z_lower_limits = -0.175;
+    double z_lower_limits = -0.2;
 
     if (arkit_vector->x <= x_upper_limits && arkit_vector->x >= x_lower_limit) {
         arkit_position.x = arkit_vector->x;
