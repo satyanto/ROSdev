@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+
+        <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+        <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+    
+        <script type="text/javascript" type="text/javascript">
+
+            // connecting to our ROSbridge server through websockets
+            var ros = new ROSLIB.Ros({
+                url : 'ws://localhost:9090' // we connect to our local ROS websocket server through rosbridge
+            });
+
+            ros.on('connection', function() {
+                console.log('Connected to ROS websocket server.');
+            });
+
+            ros.on('error', function(error) {
+                console.log('Error connecting to ROS websocket server: ', error);
+            });
+
+            // set up our publish topic on our ROS local machine
+            var arkitTopic = new ROSLIB.Topic({
+                ros : ros,
+                name : '/arkit_pos',
+                messageType : 'geometry_msgs/Vector3'
+            })
+
+
+
+            // connect to our Cartesian server hosted online at Heroku
+            var ws = new WebSocket('ws://cartesian-server.herokuapp.com')
+            
+            // we are connected to our heroku socket
+            ws.onopen = function() {
+                console.log('Connected to Cartesian Heroku server.');
+            }
+
+            ws.onmessage = function (event) {
+                var message = event.data;
+                var posobj = JSON.parse(message);
+                var arkit_pos = new ROSLIB.Message({
+                    x : posobj.xPos,
+                    y : posobj.yPos,
+                    z : posobj.zPos
+                })
+                arkitTopic.publish(arkit_pos);
+            }
+
+            
+
+        
+        </script>
+    
+    </head>
+</html>

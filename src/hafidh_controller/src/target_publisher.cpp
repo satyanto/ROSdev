@@ -6,7 +6,7 @@
 #include <geometry_msgs/Vector3.h>
 #include <geometry_msgs/PoseStamped.h>
 
-geometry_msgs::Vector3 cartesian_position;
+geometry_msgs::Vector3 cartesian_velocity;
 void dataCallback(const geometry_msgs::Vector3::ConstPtr& cartesian_vector);
 
 int main(int argc, char **argv) {
@@ -24,9 +24,9 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "target_publisher");
     ros::NodeHandle node;
 
-    ros::Subscriber cartesian_subscriber = node.subscribe<geometry_msgs::Vector3>("cartesian_position", 100, dataCallback);
-    ros::Publisher target_publisher = node.advertise<geometry_msgs::PoseStamped>("/target_pose", 10);
-    ros::Rate loop_rate(1);
+    ros::Subscriber cartesian_subscriber = node.subscribe<geometry_msgs::Vector3>("cartesian_velocity", 100, dataCallback);
+    ros::Publisher target_publisher = node.advertise<geometry_msgs::PoseStamped>("/target_pose", 20);
+    ros::Rate loop_rate(20);
 
     // we put this here so... we only make 1 PoseStamped data structure
     //geometry_msgs::PoseStamped target_pose;
@@ -55,6 +55,9 @@ int main(int argc, char **argv) {
 
         } else {
             geometry_msgs::PoseStamped target_pose;
+            double x_limits = initialpose[0] + 0.225;
+            double y_limits = initialpose[1] + 0.11;
+            double z_limits = initialpose[2] + 0.11;
 
             // int randomNumber = rand()%(max-min+1)+min;
 
@@ -78,10 +81,32 @@ int main(int argc, char **argv) {
             // //target_pose.pose.orientation.z = 0;
             // //target_pose.pose.orientation.w = 1;
 
+            // target_pose.header.frame_id = "panda_link0";
+            // target_pose.pose.position.x = initialpose[0]+cartesian_position.x;
+            // target_pose.pose.position.y = initialpose[1]+cartesian_position.y;
+            // target_pose.pose.position.z = initialpose[2]+cartesian_position.z;
+
+            double x_movement = target_pose.pose.position.x + cartesian_velocity.x;
+            double y_movement = target_pose.pose.position.y + cartesian_velocity.y;
+            double z_movement = target_pose.pose.position.z + cartesian_velocity.z;
+
             target_pose.header.frame_id = "panda_link0";
-            target_pose.pose.position.x = initialpose[0]+cartesian_position.x;
-            target_pose.pose.position.y = initialpose[1]+cartesian_position.y;
-            target_pose.pose.position.z = initialpose[2]+cartesian_position.z;
+            if ((x_movement <= x_limits) && (x_movement >= -x_limits)) {
+                target_pose.pose.position.x = x_movement;
+            } else {
+                target_pose.pose.position.x = target_pose.pose.position.x;
+            }
+            if ((y_movement <= y_limits) && (y_movement >= -y_limits)) {
+                target_pose.pose.position.y = target_pose.pose.position.y + cartesian_velocity.y;
+            } else {
+                target_pose.pose.position.y = target_pose.pose.position.y;
+            }
+            if ((z_movement <= z_limits) && (z_movement >= -z_limits)) {
+                target_pose.pose.position.z = target_pose.pose.position.z + cartesian_velocity.z;
+            } else {
+                target_pose.pose.position.z = target_pose.pose.position.z;
+            }
+
             target_publisher.publish(target_pose);
         }
 
@@ -94,16 +119,18 @@ int main(int argc, char **argv) {
 }
 
 void dataCallback(const geometry_msgs::Vector3::ConstPtr& cartesian_vector) {
-    double x_limits = 0.225;
-    double y_limits = 0.11;
-    double z_limits = 0.11;
-    if (cartesian_vector->x <= x_limits && cartesian_vector->x >= -x_limits) {
-        cartesian_position.x = cartesian_vector->x;
-    };
-    if (cartesian_vector->y <= y_limits && cartesian_vector->y >= -y_limits) {
-        cartesian_position.y = cartesian_vector->y;
-    }; 
-    if (cartesian_vector->z <= x_limits && cartesian_vector->z >= -z_limits) {
-        cartesian_position.z = cartesian_vector->z;
-    };
+    double reduction_factor = 35;
+    cartesian_velocity.x = (cartesian_vector->x)/reduction_factor;
+    cartesian_velocity.y = (cartesian_vector->y)/reduction_factor;
+    cartesian_velocity.z = (cartesian_vector->z)/reduction_factor;
+
+    // if (cartesian_vector->x <= x_limits && cartesian_vector->x >= -x_limits) {
+    //     cartesian_velocity.x = cartesian_vector->x;
+    // };
+    // if (cartesian_vector->y <= y_limits && cartesian_vector->y >= -y_limits) {
+    //     cartesian_velocity.y = cartesian_vector->y;
+    // }; 
+    // if (cartesian_vector->z <= x_limits && cartesian_vector->z >= -z_limits) {
+    //     cartesian_velocity.z = cartesian_vector->z;
+    // };
 }

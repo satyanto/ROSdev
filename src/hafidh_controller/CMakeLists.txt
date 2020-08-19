@@ -79,6 +79,18 @@ target_include_directories(target_publisher SYSTEM PUBLIC
 )
 
 
+# Add our ARKit publisher node
+add_executable(arkit_publisher src/arkit_publisher.cpp)
+target_link_libraries(arkit_publisher
+    ${Franka_LIBRARIES}
+    ${catkin_LIBRARIES}
+)
+target_include_directories(arkit_publisher SYSTEM PUBLIC
+    ${Franka_INCLUDE_DIRS}
+    ${catkin_INCLUDE_DIRS}
+)
+
+
 # Add our arduino_blinker node
 add_executable(arduino_blinker src/arduino_blink.cpp)
 target_link_libraries(arduino_blinker
